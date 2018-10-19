@@ -1,5 +1,5 @@
 # MachineLearningLAB
-Repository about Sherlock and Moriarty's problem,.
+Repository about Sherlock and Moriarty's problem.
 
 # Project structure
 ├─ milestone 1
