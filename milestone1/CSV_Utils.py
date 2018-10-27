@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+import pandas as pd
+from sklearn import preprocessing
+from sklearn.decomposition import PCA
+import numpy as np
 
 def calculateAverage(path_to_csv, column_index, rows_affected, path_to_destiny):
 
@@ -34,10 +38,27 @@ def calculateAverage(path_to_csv, column_index, rows_affected, path_to_destiny):
             index += 1
 
         line_to_write = ', '.join(map(str, list_to_write))
+        line_to_write = line_to_write.replace('"Null"',"NULL") # This replace is to eliminate this annoying nulls
+
+
         output_file.write(line_to_write)
 
         line = input_file.readline()
 
+
+def normalize_filtered_data(path):
+    file = pd.read_csv(path, low_memory=False)
+
+    exclude = ['UserID', 'UUID', 'Version', 'TimeStemp', "RotationVector_cosThetaOver2_MEAN", "RotationVector_cosThetaOver2_MEDIAN", "RotationVector_cosThetaOver2_MIDDLE_SAMPLE"]
+    df_ex = file.loc[:, file.columns.difference(exclude)]
+    df_ex = df_ex.replace(" NULL", np.NaN)
+    
+    df_ex = df_ex.dropna()
+    
+    min_max_scaler = preprocessing.MinMaxScaler()
+    df_norm = min_max_scaler.fit_transform(df_ex)
+        
+    return df_norm
 
 if __name__ == '__main__':
     from sys import argv
