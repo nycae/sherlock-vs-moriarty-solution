@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-import pandas as pd
-from sklearn import preprocessing
-from sklearn.decomposition import PCA
-import numpy as np
 
 def calculateAverage(path_to_csv, column_index, rows_affected, path_to_destiny):
 
@@ -47,6 +43,12 @@ def calculateAverage(path_to_csv, column_index, rows_affected, path_to_destiny):
 
 
 def normalize_filtered_data(path):
+
+    import pandas as pd
+    from sklearn import preprocessing
+    from sklearn.decomposition import PCA
+    import numpy as np
+
     file = pd.read_csv(path, low_memory=False)
 
     exclude = ['UserID', 'UUID', 'Version', 'TimeStemp', "RotationVector_cosThetaOver2_MEAN", "RotationVector_cosThetaOver2_MEDIAN", "RotationVector_cosThetaOver2_MIDDLE_SAMPLE"]
@@ -60,9 +62,33 @@ def normalize_filtered_data(path):
         
     return df_norm
 
+def get_indexes(path, key_list):
+
+    file = open(path, 'r')
+
+    index = 0
+    to_delete = []
+
+    attirbute_list = file.readline().split(',')
+
+    for attribute in attirbute_list:
+
+        for key in key_list:
+
+            if key in attribute:
+
+                to_delete.append(index)
+
+        index += 1
+
+    
+    return to_delete
+
 if __name__ == '__main__':
     from sys import argv
     import argparse
+
+    print(get_indexes('T2.csv', ['Gyroscope', 'MEDIAN']))
 
     parser = argparse.ArgumentParser(description='Calculate de average of a column')
     parser.add_argument('input_file', help='Path to csv', type=str)
