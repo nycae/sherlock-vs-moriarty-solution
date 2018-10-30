@@ -82,13 +82,13 @@ def get_indexes(path, key_list):
         index += 1
 
     
-    return to_delete
+    return set(to_delete)
 
 if __name__ == '__main__':
     from sys import argv
     import argparse
 
-    print(get_indexes('T2.csv', ['Gyroscope', 'MEDIAN']))
+    print(len(get_indexes('T2.csv', ['Gyroscope', 'MEDIAN', 'VAR', 'RotationVector', 'FFT'])))
 
     parser = argparse.ArgumentParser(description='Calculate de average of a column')
     parser.add_argument('input_file', help='Path to csv', type=str)
