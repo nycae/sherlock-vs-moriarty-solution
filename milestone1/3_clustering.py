@@ -1,6 +1,5 @@
 import pandas as pd
 import io
-from sklearn import metrics
 import sklearn.neighbors
 from sklearn.cluster import KMeans
 from sklearn.decomposition import PCA
@@ -19,12 +18,12 @@ The options would range from Complete-Link to Ward.
 The Complete-Link will allow us to break up the big groups.
 """
 
-path_in = "data/data_norm.csv"
-path_copy = "data/data_norm_copy.csv"
+path_in     = "data/data_norm.csv"
+path_copy   = "data/data_norm_copy.csv"
 
 def read_dataset(path):
-    df = pd.read_csv(path)
-    return df
+    return pd.read_csv(path)
+    
 
 def calculatePCA(dataframe):
     #file = pd.read_csv(path, low_memory=False)
@@ -43,39 +42,44 @@ def calculatePCA(dataframe):
     for i in range(len(X_pca)):
         plt.text(X_pca[i][0], X_pca[i][1], numbers[i])
 
-    plt.xlim(-5, 10)
-    plt.ylim(-5, 10)
+    plt.xlim(-1, 1.5)
+    plt.ylim(-1, 1.5)
     ax.grid(True)
     fig.tight_layout()
-    plt.show()
+    #plt.show()
     return X_pca
 
 
 def plot_pca(X_pca, labels):
-    colors = numpy.array([x for x in 'bgrcmykbgrcmykbgrcmykbgrcmyk'])
-    colors = numpy.hstack([colors] * 20)
-    numbers = numpy.arange(len(X_pca))
-    fig, ax = plt.subplots()
+    
+    colors      = numpy.array([x for x in 'bgrcmykbgrcmykbgrcmykbgrcmyk'])
+    colors      = numpy.hstack([colors] * 20)
+    numbers     = numpy.arange(len(X_pca))
+    fig, ax     = plt.subplots()
+    
     for i in range(len(X_pca)):
         plt.text(X_pca[i][0], X_pca[i][1], numbers[i], color=colors[labels[i]]) 
+    
     plt.xlim(-1, 4)
     plt.ylim(-0.2, 1)
     ax.grid(True)
     fig.tight_layout()
     plt.show()
 
-# 2.1 Setting parameters 
+# 2.1 Setting parameters metrics
 def clustering(data_norm, X_pca):
+    from sklearn import metrics
     # kmeans parameters
-    init = 'random' # initialization method 
-    iterations = 10 # to run 10 times with different random centroids to choose the final model as the one with the lowest SSE
-    max_iter = 300 # maximum number of iterations for each single run
-    tol = 1e-04 # controls the tolerance with regard to the changes in the within-cluster sum-squared-error to declare convergence
-    random_state = 0 # random
+    init            = 'random' # initialization method 
+    
+    iterations      = 10    # to run 10 times with different random centroids to choose the final model as the one with the lowest SSE
+    max_iter        = 300   # maximum number of iterations for each single run
+    tol             = 1e-04 # controls the tolerance with regard to the changes in the within-cluster sum-squared-error to declare convergence
+    random_state    = 0     # random
     
     
-    distortions = []
-    silhouettes = []
+    distortions     = []
+    silhouettes     = []
     
     for i in range(2, 11):
         km = KMeans(i, init, n_init = iterations ,max_iter= max_iter, tol = tol,random_state = random_state)
@@ -108,15 +112,16 @@ def clustering(data_norm, X_pca):
     plot_pca(X_pca, labelsplus)
     
     # 6. characterization
-    from sklearn import metrics
     n_clusters_ = len(set(labels)) #- (1 if -1 in labels else 0)
     print('Estimated number of clusters: %d' % n_clusters_)
     print("Silhouette Coefficient: %0.3f"
           % metrics.silhouette_score(data_norm, labels))
     df['group'] = labels
-    res = df.groupby(('group')).mean()
+    df.groupby(('group')).mean()
 
 
-df = read_dataset(path_copy)
-X_pca = calculatePCA(df)
-#clustering(df, X_pca)
+if __name__ == '__main__':
+    
+    df = read_dataset(path_copy)
+    X_pca = calculatePCA(df)
+    clustering(df, X_pca)
