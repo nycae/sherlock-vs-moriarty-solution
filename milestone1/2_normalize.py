@@ -69,13 +69,13 @@ def view_columns_name(path_in):
     df = read_df(path_in)
     print(df.columns)
 
+if __name__ == '__main__':
+    #First i load the preprocessed dataset in df_pred
+    df_prep = read_df(path_in) #Here we have to normalize the data in dfnorm
+    df_norm = normalize_filtered_data(df_prep)
+    to_csv(path_out,df_norm)
+    df_norm = read_df(path_out)
     
-#First i load the preprocessed dataset in df_pred
-df_prep = read_df(path_in) #Here we have to normalize the data in dfnorm
-df_norm = normalize_filtered_data(df_prep)
-to_csv(path_out,df_norm)
-df_norm = read_df(path_out)
-
-test_corr(df_norm)
-view_columns_name(path_in)
+    test_corr(df_norm)
+    view_columns_name(path_in)
 
