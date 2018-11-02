@@ -4,8 +4,7 @@ import numpy
 import sklearn.neighbors
 
 from sklearn import metrics
-from sklearn.cluster import KMeans
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import KMeans, DBSCAN
 from sklearn.decomposition import PCA
 from sklearn.neighbors import kneighbors_graph
 
@@ -18,8 +17,8 @@ The options would range from Complete-Link to Ward.
 The Complete-Link will allow us to break up the big groups.
 """
 
-path_in     = "data/data_norm.csv"
-path_copy   = "data/data_norm_copy.csv"
+path_norm     = "data/data_norm.csv"
+path_prep     = "data/preprocessed.csv"
 
 def read_dataset(path):
     return pd.read_csv(path)
@@ -36,11 +35,10 @@ def calculatePCA(dataframe):
     columns=['PC-1', 'PC-2'], index=dataframe.columns)
 
     #Print
-    numbers = numpy.arange(len(X_pca))
     fig, ax = plt.subplots()
 
     for i in range(len(X_pca)):
-        plt.text(X_pca[i][0], X_pca[i][1], numbers[i])
+        plt.text(X_pca[i][0], X_pca[i][1], "+")
 
     plt.xlim(-1, 1.5)
     plt.ylim(-1, 1.5)
@@ -54,21 +52,19 @@ def plot_pca(X_pca, labels):
 
     colors      = numpy.array([x for x in 'bgrcmykbgrcmykbgrcmykbgrcmyk'])
     colors      = numpy.hstack([colors] * 20)
-    numbers     = numpy.arange(len(X_pca))
     fig, ax     = plt.subplots()
 
     for i in range(len(X_pca)):
-        plt.text(X_pca[i][0], X_pca[i][1], numbers[i], color=colors[labels[i]])
+        plt.text(X_pca[i][0], X_pca[i][1], '.', color=colors[labels[i]])
 
-    plt.xlim(-1, 4)
-    plt.ylim(-0.2, 1)
+    plt.xlim(-1, 1)
+    plt.ylim(-0.5, 0.8)
     ax.grid(True)
     fig.tight_layout()
     plt.show()
 
 # 2.1 Setting parameters metrics
 def clustering(data_norm, X_pca):
-    from sklearn import metrics
     # kmeans parameters
     init            = 'random' # initialization method
 
@@ -102,7 +98,7 @@ def clustering(data_norm, X_pca):
     plt.show()
 
     # 2.2 Clustering execution
-    k = 6 # from previous pictures but it is not easy to choose
+    k = 5 # from previous pictures but it is not easy to choose
     # 2.1 random inicialization
     centroids, labels, z =  sklearn.cluster.k_means(data_norm, k, init="random" )
     plot_pca(X_pca,labels)
@@ -118,37 +114,42 @@ def clustering(data_norm, X_pca):
           % metrics.silhouette_score(data_norm, labels))
     df['group'] = labels
     df.groupby(('group')).mean()
-
-def calculate_clustering_db_scan(data):
-    # 1. Compute de similarity/ distance matrix
-    dist = sklearn.neighbors.DistanceMetric.getmetric('euclidean')
-    matsim = dist.pairwise(data)
     
-    minPts = 10
+    return labels
     
-    # 2. Compute the k-nearest neightbors
-    A = kneighbors_graph(data, minPts, include_self=False)
-    Ar = A.toarray()
-
-    seq = []
-    for i,s in enumerate(data):
-        for j in range(len(data)):
-            if Ar[i][j] != 0:
-                seq.append(matsim[i][j])
-            
-    seq.sort()
-    plt.plot(seq)
-    plt.show()
-            
-    
-    # 3. Execute clustering
-    labels = DBSCAN(eps= 0.08, min_samples = minPts).fit_predict(data)
-    
-    # 4. Plot the results
-    plotdata(data, labels, 'dbscan')
-    
-    # 5. Validation
-    print ("Silhouette Coefficient : %0.3f" % metrics.silhouette_score(numpy.asarray(data),labels))
+def clustering_dbscan(data_norm):
+  db = DBSCAN(eps=0.3, min_samples=10).fit(data_norm)
+  core_samples_mask = numpy.zeros_like(db.labels_, dtype=bool)
+  core_samples_mask[db.core_sample_indices_] = True
+  labels = db.labels_
+  
+  # Number of clusters in labels, ignoring noise if present.
+  n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
+  
+  
+  # 3. Validation/Evaluation
+  print('Estimated number of clusters: %d' % n_clusters_)
+  
+  # Black removed and is used for noise instead.
+  unique_labels = set(labels)
+  colors = plt.cm.Spectral(numpy.linspace(0, 1, len(unique_labels)))
+  for k, col in zip(unique_labels, colors):
+      if k == -1:
+          # Black used for noise.
+          col = 'k'
+  
+      class_member_mask = (labels == k)
+  
+      xy = data_norm[class_member_mask & core_samples_mask]
+      plt.plot(xy.values[:, 0], xy.values[:, 1], 'o', markerfacecolor=col,
+               markeredgecolor='k', markersize=14)
+  
+      xy = data_norm[class_member_mask & ~core_samples_mask]
+      plt.plot(xy.values[:, 0], xy.values[:, 1], 'o', markerfacecolor=col,
+               markeredgecolor='k', markersize=6)
+  
+  plt.title('Estimated number of clusters: %d' % n_clusters_)
+  plt.show()
     
     
 def plotdata(data, labels, name):
@@ -161,9 +162,10 @@ def plotdata(data, labels, name):
 
 if __name__ == '__main__':
 
-    df = read_dataset(path_copy)
+    df = read_dataset(path_norm)
+    df_pre = read_dataset(path_prep)
     X_pca = calculatePCA(df)
-    clustering(df, X_pca)
+    grupos = clustering(df, X_pca)
     
-    calculate_clustering_db_scan(df)
+    clustering_dbscan(df)
     

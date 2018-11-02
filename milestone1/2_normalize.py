@@ -9,17 +9,12 @@ import matplotlib.pyplot as plt
 
 path_in     = "data/preprocessed.csv"
 path_out    = "data/data_norm.csv"
-path_copy   = "data/data_norm_copy.csv"
-
 
 def normalize_filtered_data(file):
 
     exclude         = ['UserID', 'UUID', 'Version', 'TimeStemp']
     
     df_ex           = file.loc[:, file.columns.difference(exclude)]
-    df_ex           = df_ex.replace(" NULL", numpy.NaN)
-
-    df_ex           = df_ex.dropna()
 
     min_max_scaler  = preprocessing.MinMaxScaler()
     df_norm         = min_max_scaler.fit_transform(df_ex)
@@ -32,8 +27,8 @@ def test_corr(df_ex):
     
     pcolor(R)
     colorbar()
-    yticks(arange(0,16),range(0,16))
-    xticks(arange(0,16),range(0,16))
+    yticks(arange(0,18),range(0,18))
+    xticks(arange(0,18),range(0,18))
     show()
     
     sns.set(style="white")
