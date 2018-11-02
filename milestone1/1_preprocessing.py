@@ -78,7 +78,6 @@ def get_indexes(path, key_list):
 def delete_columns(lista, df):
     
     number_of_deletes = 0
-    
     for i in lista:
         df = df.drop(df.columns[i - number_of_deletes], axis=1)
         number_of_deletes += 1
