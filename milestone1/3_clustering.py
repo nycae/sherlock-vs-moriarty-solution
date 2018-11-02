@@ -115,7 +115,7 @@ def clustering(data_norm, X_pca):
     df['group'] = labels
     df.groupby(('group')).mean()
     
-    return labels
+    return labels,labelsplus
     
 def clustering_dbscan(data_norm):
   db = DBSCAN(eps=0.3, min_samples=10).fit(data_norm)
@@ -150,7 +150,8 @@ def clustering_dbscan(data_norm):
   
   plt.title('Estimated number of clusters: %d' % n_clusters_)
   plt.show()
-    
+  
+  return db.labels_
     
 def plotdata(data, labels, name):
     fig, ax = plt.subplots()
@@ -165,7 +166,7 @@ if __name__ == '__main__':
     df = read_dataset(path_norm)
     df_pre = read_dataset(path_prep)
     X_pca = calculatePCA(df)
-    grupos = clustering(df, X_pca)
+    grupos_kmeans = clustering(df, X_pca)
     
-    clustering_dbscan(df)
+    grupos_dbscan = clustering_dbscan(df)
     
