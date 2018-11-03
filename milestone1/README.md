@@ -1,13 +1,14 @@
 # Milestone 1
 
-## 1.Preprocessing
+## 1. Preprocessing
 [1_preprocessing.py](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/1_preprocessing.py)
-## 2.Normalize
+## 2. Normalize
 [2_normalize.py](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/2_normalize.py)
 ### 2.1 Correlations
-
-## 3 Clustering
+![alt text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/plots/correlation.png "Logo Title Text 1")
+## 3. Clustering
 [2_clustering.py](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/3_clustering.py)
+### 3.1 PCA
 
 ## Conclusions
 
