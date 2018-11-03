@@ -1,4 +1,10 @@
 # Milestone 1
+## What is the problem?
+Analize the routine of an iranian citizen via movile phone ir order to learn about how to perform unsupervised learning
+
+![alt text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/img/problem.png "Logo Title Text")
+
+We have divided the work into three .py files so we describe them below
 
 ## 1. Preprocessing
 At this stage we filter the rows and characteristics, and erase the null values, all the work is here:
