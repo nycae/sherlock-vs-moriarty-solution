@@ -85,43 +85,42 @@ def delete_columns(lista, df):
         number_of_deletes += 1
     
     return df
-  
-def drop_nulls(dataframe):
-    dataf       = dataframe.replace(" NULL", numpy.NaN)
-    dataf       = dataf.dropna()
-    
-    return dataf
-    
+
+
 def read_df(path):
     return pd.read_csv(path, low_memory=False)
 
 
 def to_csv(path,dataframe):
     dataframe.to_csv(path)
-#    numpy.savetxt(path, dataframe, delimiter=",", fmt='%s')
+    print("File preprocessed.csv created sucessfully")
 
+def drop_nulls(dataframe):
+    dataf= dataframe.replace(" NULL", numpy.NaN)
+    dataf= dataf.dropna()
+    return dataf
+    
 ######################################################################
-############################## EXECUTE ###############################
+############################## EXECUTE   #############################
 ######################################################################
 
 if __name__ == '__main__':
     
-#    calculateAverage(raw_path, column_index, rows_index, path_out)
+    #calculateAverage(raw_path, column_index, rows_index, path_out)
     
     # We took the Means and the covariances of al the axis except the y, because 3 dimensions are plenty
     # We discarted:
     #   MEDIAN because is highly related to the MEAN
     #   VAR, because is highly related to COVARIANCE
-    #   OrientationProbe, because is highly related to X and Z Linear acceleration.
-    #   Fourier's Transformation, because we don't know what the heck is that.
-    #   Accelerometer, because we're not interested in taking into account acceleration with gravitational force.
+    #   OrientationProbe, because is highly related to X and Z Linear acceleration
+    #   Fourier's Transformation, because we don't know what the heck is that
     
-#    lista = get_indexes(path_out, ['MEDIAN', 'AccelerometerStat','VAR', 'MIDDLE_SAMPLE', 'FFT', 'RotationVector', 'OrientationProbe'])
-    lista = get_indexes(path_out, ['MEDIAN','VAR', 'AccelerometerStat','MIDDLE_SAMPLE', 'RotationVector','FFT', 'OrientationProbe', '_y_'])
     
-    df_pre_null = read_df(path_out)
-    df_pre_null = delete_columns(lista, df_pre_null)
-    df_pre_null= drop_nulls(df_pre_null)
-
-    to_csv(path_preprocessed, df_pre_null)
+    lista = get_indexes(path_out, ['MEDIAN', 'VAR', 'MIDDLE_SAMPLE', 'FFT', 'RotationVector', 'OrientationProbe', '_y_'])
+    df_pre = read_df(path_out)
+    df_pre = delete_columns(lista, df_pre)
+    df_pre = drop_nulls(df_pre)
+    to_csv(path_preprocessed, df_pre)
+    
+        
 

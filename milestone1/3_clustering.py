@@ -6,7 +6,7 @@ import sklearn.neighbors
 from sklearn import metrics
 from sklearn.cluster import KMeans, DBSCAN
 from sklearn.decomposition import PCA
-from sklearn.neighbors import kneighbors_graph
+
 
 """
 ## 3. Clustering
