@@ -11,7 +11,6 @@ import matplotlib.pyplot as plt
 
 path_in     = "data/preprocessed.csv"
 path_out    = "data/data_norm.csv"
-path_copy   = "data/data_norm_copy.csv"
 
 
 def normalize_filtered_data(file):
@@ -29,8 +28,8 @@ def test_corr(df_ex):
     R   = corrcoef(transpose(df_ex))
     pcolor(R)
     plt.colorbar()
-    yticks(arange(0,19),range(0,19))
-    xticks(arange(0,19),range(0,19))
+    yticks(arange(0,14),range(0,14))
+    xticks(arange(0,14),range(0,14))
     plt.savefig("plots/correlation.png")
 
     
@@ -59,12 +58,6 @@ def read_df(path):
 
 def to_csv(path,dataframe):
     numpy.savetxt(path, dataframe, delimiter=",")
-    
-    
-def copy_dataset(path_out):
-    dfcopy = read_df(path_out)
-    return dfcopy
-
 
 def view_columns_name(path_in):
     df = read_df(path_in)

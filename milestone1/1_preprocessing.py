@@ -116,7 +116,7 @@ if __name__ == '__main__':
     #   Fourier's Transformation, because we don't know what the heck is that
     
     
-    lista = get_indexes(path_out, ['MEDIAN', 'VAR', 'MIDDLE_SAMPLE', 'FFT', 'RotationVector', 'OrientationProbe', '_y_'])
+    lista = get_indexes(path_out, ['MEDIAN', 'AccelerometerStat','VAR', 'MIDDLE_SAMPLE', 'FFT', 'RotationVector', 'OrientationProbe', '_y_'])
     df_pre = read_df(path_out)
     df_pre = delete_columns(lista, df_pre)
     df_pre = drop_nulls(df_pre)
