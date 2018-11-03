@@ -21,6 +21,12 @@ In the normalizing stage we have to eliminate categorical variables and apply a 
 And finally in clustering, we use different unsupervised learning techniques which are KMeans, DBSCAN, KMeans++, for the creation of groups, we also calculate the PCA. You can see a more detailed description in the Lab book, and here is the code:
 [3_clustering.py](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/3_clustering.py)
 ### 3.1 PCA
-
+![alt_text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/plots/pca.png)
+### 3.2 KMeans
+![alt_text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/plots/clustering_kmeans_pca.png)
+### 3.3 KMeans++
+![alt_text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/plots/clustering_kmeans%2B%2B_pca.png)
+### 3.4 DBSCAN
+![alt_text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/milestone1/plots/clustering_dbscan_pca.png)
 ## Conclusions
 
