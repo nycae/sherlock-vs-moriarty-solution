@@ -2,7 +2,7 @@
 ## What is the problem?
 Analize the routine of an iranian citizen via movile phone ir order to learn about how to perform unsupervised learning
 
-![alt text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/img/problem.png "Logo Title Text")
+![alt text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/resources/img/problem.png)
 
 We have divided the work into three .py files so we describe them below
 
