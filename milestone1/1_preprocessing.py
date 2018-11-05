@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
+import numpy
 
 raw_path            = "data/T2.csv"
 column_index        = 5
@@ -91,6 +92,12 @@ def read_df(path):
 
 def to_csv(path,dataframe):
     dataframe.to_csv(path)
+    print("File preprocessed.csv created sucessfully")
+
+def drop_nulls(dataframe):
+    dataf= dataframe.replace(" NULL", numpy.NaN)
+    dataf= dataf.dropna()
+    return dataf
     
 ######################################################################
 ############################## EXECUTE   #############################
@@ -98,7 +105,7 @@ def to_csv(path,dataframe):
 
 if __name__ == '__main__':
     
-    calculateAverage(raw_path, column_index, rows_index, path_out)
+    #calculateAverage(raw_path, column_index, rows_index, path_out)
     
     # We took the Means and the covariances of al the axis except the y, because 3 dimensions are plenty
     # We discarted:
@@ -107,10 +114,12 @@ if __name__ == '__main__':
     #   OrientationProbe, because is highly related to X and Z Linear acceleration
     #   Fourier's Transformation, because we don't know what the heck is that
     
-    lista = get_indexes(path_out, ['MEDIAN', 'VAR', 'MIDDLE_SAMPLE', 'FFT', 'RotationVector', 'OrientationProbe', '_y_'])
-
+    
+    lista = get_indexes(path_out, ['MEDIAN', 'AccelerometerStat','VAR', 'MIDDLE_SAMPLE', 'FFT', 'RotationVector', 'OrientationProbe', '_y_'])
     df_pre = read_df(path_out)
     df_pre = delete_columns(lista, df_pre)
-
+    df_pre = drop_nulls(df_pre)
     to_csv(path_preprocessed, df_pre)
+    
+        
 
