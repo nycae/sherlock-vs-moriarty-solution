@@ -4,7 +4,9 @@ Repository about Sherlock and Moriarty's problem for the subject Machine Learnin
 ## Problem
 Sherlock and Moriarty is an iranian problem whose purpose is to learn, prepare and protect about several types of cyber-hazards. This database contains information gathered from several smartphones, and the goal is to make a program that could detect how many of those terminals were infected by the virus of Moriarty.
 
-![alt text](https://github.com/RoberPlaza/MachineLearningLAB/blob/master/resources/img/1.png)
+<p align="center">
+  <img width="400" height="300" src="https://github.com/RoberPlaza/MachineLearningLAB/blob/master/resources/img/1.png">
+</p>
 
 ## Milestones
 * [Milestone 1](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone1)
