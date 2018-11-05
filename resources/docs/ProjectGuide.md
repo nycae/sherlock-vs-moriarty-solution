@@ -50,7 +50,7 @@ Diccionario de nomenclatura:
 
 Todas las variables han de tener nombres representativos.
 * Las clases han de ser sustantivos.
-* Las funciones han de ser verbos. **Caso especial**, las funcinoes que devuelvan valores booleanos deberan empezar por "is" segido del nombre representativo a elección. e.g: isEven(), isOdd()
+* Las funciones han de ser verbos. **Caso especial**, las funciones que devuelvan valores booleanos deberan empezar por "is" segido del nombre representativo a elección. e.g: isEven(), isOdd()
 * Los atributos han de ser adjetivos.
 
 ### Formato de declaraciones
