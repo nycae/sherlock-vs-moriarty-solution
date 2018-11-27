@@ -13,9 +13,8 @@ In **Milestone 1** we carry out a complete Exploratory Data Analysis process of 
 
 * [Milestone 1](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone1)
 
-**Milestone 2**  we have to predict when Moriarty will attack the device.
+In **Milestone 2**  we have to predict when Moriarty will attack the device with Sherock.
 * [Milestone 2](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone2)
-
 
 * [Milestone 3](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone3)
 ## Software
