@@ -2,14 +2,6 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
 import numpy as np
-import seaborn as sb
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-from matplotlib import cm
-plt.rcParams['figure.figsize'] = (16, 9)
-plt.style.use('ggplot')
-from sklearn import linear_model
-from sklearn.metrics import mean_squared_error, r2_score
 
 def preprocess_moriarty(path_to_csv, path_to_destiny):
   input_file  = open(path_to_csv, 'r')
@@ -76,16 +68,13 @@ def drop_nulls(dataframe):
 
 if __name__ == '__main__':    
   df_T2                = read_df("data/preprocessed.csv")
-#  df_T4                = drop_nulls(read_df("data/T4.csv"))
   df_to_find           = df_T2[(df_T2.UUID >= 1461851815453) & ((df_T2.UUID <= 1463565596193))]    
   df_to_find['attack'] = 0
   preprocess_moriarty("data/Moriarty.csv", "data/Moriarty_fix.csv")
   
-#  df_to_merge = make_subdataset(df_T2, ['UUID', 'GyroscopeStat_x_MEAN', 'GyroscopeStat_y_MEAN', 'GyroscopeStat_z_MEAN'])
   df_Mor      = read_df("data/Moriarty_fix.csv")
   label_dataset(df_to_find, df_Mor, 60000)
   df_to_find = drop_nulls(df_to_find)
-#   Visualizamos rápidamente las caraterísticas de entrada
 
   
   
