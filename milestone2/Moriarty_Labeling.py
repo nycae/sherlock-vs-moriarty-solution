@@ -1,7 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import pandas as pd
-import numpy
+import numpy as np
+import seaborn as sb
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+from matplotlib import cm
+plt.rcParams['figure.figsize'] = (16, 9)
+plt.style.use('ggplot')
+from sklearn import linear_model
+from sklearn.metrics import mean_squared_error, r2_score
 
 def preprocess_moriarty(path_to_csv, path_to_destiny):
   input_file  = open(path_to_csv, 'r')
@@ -16,36 +24,75 @@ def preprocess_moriarty(path_to_csv, path_to_destiny):
     output_file.write(line_to_write)
     line = input_file.readline()
 
-def label_dataset(df_to_label, df_labels):
+def label_dataset(df_to_label, df_labels, probe_time):
+  
   for i in df_labels["UUID"]:
-    aux = df_to_label[(int(i) <= df_to_label.UUID ) & (int(i) >= (df_to_label.UUID - 20000))]
+    aux = df_to_label[(int(i) <= df_to_label.UUID ) & (int(i) >= (df_to_label.UUID - probe_time))]
     print(aux)
-    if not (aux.empty or aux.attack == 1):
+    if not (aux.empty):
       df_to_label.loc[aux.index, 'attack'] = 1
+
+def make_subdataset(dataset, features_to_extract):
+  df_nuevo = dataset[features_to_extract]
+  return df_nuevo
+
+# Work in progress
+def make_equality_inter_datasets(df_merge1, df_merge2):
+  probe_1_inf      = df_merge1.iloc[0,1]
+  probe_1_sup      = df_merge1.iloc[1,1]
+  
+  probe_2_inf      = df_merge2.iloc[0,1]
+  probe_2_sup      = df_merge2.iloc[1,1]
+  
+  probe_interval_1 = round((probe_1_sup - probe_1_inf), -3)
+  probe_interval_2 = round((probe_2_sup - probe_2_inf), -3)
+  
+  if (probe_interval_1 // probe_interval_2 >= 1):
+    adaptative_new_registers = probe_interval_1 // probe_interval_2
+    
+    for index, row in df_merge1.iterrows():
+      # Hacer pd.cut(UUID, adaptative_new_registers)
+      pass
+    
+  else:
+    adaptative_new_registers = probe_interval_2 // probe_interval_1
+    pass
 
 def read_df(path):
     return pd.read_csv(path, low_memory=False)
-
 
 def to_csv(path,dataframe):
     dataframe.to_csv(path)
     print("File preprocessed.csv created sucessfully")
 
 def drop_nulls(dataframe):
-    dataf= dataframe.replace(" NULL", numpy.NaN)
-    dataf= dataf.dropna()
+    dataf = dataframe.replace(" NULL", np.NaN)
+    dataf = dataf.dropna()
     return dataf
     
 ######################################################################
-############################## EXECUTE   #############################
+############################## EXECUTE ###############################
 ######################################################################
 
 if __name__ == '__main__':    
-    df_T2                = read_df("data/T2.csv")
-    df_to_find           = df_T2[(df_T2.UUID >= 1461851815453) & ((df_T2.UUID <= 1463565596193))]    
-    df_to_find['attack'] = 0
-    preprocess_moriarty("data/Moriarty.csv", "data/Moriarty_fix.csv")
-    
-    df_Mor = read_df("data/Moriarty_fix.csv")
-    label_dataset(df_to_find, df_Mor)
-    
+  df_T2                = read_df("data/preprocessed.csv")
+#  df_T4                = drop_nulls(read_df("data/T4.csv"))
+  df_to_find           = df_T2[(df_T2.UUID >= 1461851815453) & ((df_T2.UUID <= 1463565596193))]    
+  df_to_find['attack'] = 0
+  preprocess_moriarty("data/Moriarty.csv", "data/Moriarty_fix.csv")
+  
+#  df_to_merge = make_subdataset(df_T2, ['UUID', 'GyroscopeStat_x_MEAN', 'GyroscopeStat_y_MEAN', 'GyroscopeStat_z_MEAN'])
+  df_Mor      = read_df("data/Moriarty_fix.csv")
+  label_dataset(df_to_find, df_Mor, 60000)
+  df_to_find = drop_nulls(df_to_find)
+#   Visualizamos rápidamente las caraterísticas de entrada
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
