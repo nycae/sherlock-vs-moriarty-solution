@@ -22,7 +22,8 @@ def read_dataset(path):
     return pd.read_csv(path)
 
 def merge_datasets(df_centroids, df_attacks_normalized):
-    os.system("cat {} {} > {} ".format(path_centroids_no_attacks,path_attacks_normalized,path_mergered))
+    os.system("echo GyroscopeStat_x_MEAN,GyroscopeStat_z_MEAN,GyroscopeStat_COV_z_x,GyroscopeStat_COV_z_y,MagneticField_x_MEAN,MagneticField_z_MEAN,MagneticField_COV_z_x,MagneticField_COV_z_y,Pressure_MEAN,LinearAcceleration_COV_z_x,LinearAcceleration_COV_z_y,LinearAcceleration_x_MEAN,LinearAcceleration_z_MEAN,attack > {}".format(path_mergered))
+    os.system("cat {} {} >> {} ".format(path_centroids_no_attacks,path_attacks_normalized,path_mergered))
     df = read_dataset(path_mergered)
     return df
     
@@ -37,7 +38,7 @@ def divide_datasets(df_merged):
     return df_train,df_test
 
 def to_csv(path,dataframe):
-    np.savetxt(path, dataframe, delimiter=",")
+    dataframe.to_csv(path)
     
 if __name__ == '__main__':
     df1       = read_dataset(path_attacks_normalized)
