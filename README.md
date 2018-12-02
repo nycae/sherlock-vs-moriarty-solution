@@ -9,8 +9,14 @@ Sherlock and Moriarty is an iranian problem whose purpose is to learn, prepare a
 </p>
 
 ## Milestones
+In **Milestone 1** we carry out a complete Exploratory Data Analysis process of a subset of this dataset.
+
 * [Milestone 1](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone1)
+
+In **Milestone 2**  we have to predict when Moriarty will attack the device with Sherock in order to build a model.
 * [Milestone 2](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone2)
+
+* [Milestone 3](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone3)
 ## Software
 This project is being developed using Python 3.X and the Spyder IDE from the Anaconda tools.
 ## Members
