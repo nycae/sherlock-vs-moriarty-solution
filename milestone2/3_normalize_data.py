@@ -28,7 +28,7 @@ if __name__ == '__main__':
     
     df_no_attacks = read_df(path_no_attacks_cleaned) 
     df_attacks    = read_df(path_attacks_cleaned)
-    
+
     df_norm_no_attacks = normalize_filtered_data(df_no_attacks)
     df_norm_attacks    = normalize_filtered_data(df_attacks)
     

@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import os
 
-path_attacks_normalized     =           "data/data_attack_cleaned.csv"
+path_attacks_normalized     =           "data/data_attack_normalized.csv"
 path_centroids_no_attacks   =           "data/data_no_attack_centroids.csv"
 path_mergered               =           "data/data_merged.csv"
 path_train                  =           "model/data_train.csv"
@@ -45,6 +45,9 @@ if __name__ == '__main__':
     df2       = read_dataset(path_centroids_no_attacks)
     
     df_merged = merge_datasets(df1,df2)
+    df_merged = df_merged.replace(0, 1)
+    df_merged = df_merged.replace(np.nan, 0)
+    
     train,test = divide_datasets(df_merged)
     
     to_csv(path_train,train)
