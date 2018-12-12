@@ -18,6 +18,9 @@ In **Milestone 2**  we have to predict when Moriarty will attack the device with
 
 In **Milestone 3**  we will finalize the model developed in the previous milestone and draw the relevant conclusions.
 * [Milestone 3](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone3)
+
+In **Milestone 3_spark**  we will finalize the model using Apache Spark.
+* [Milestone 3](https://github.com/RoberPlaza/MachineLearningLAB/tree/master/milestone3)
 ## Software
 This project is being developed using Python 3.X and the Spyder IDE from the Anaconda tools.
 ## Members
