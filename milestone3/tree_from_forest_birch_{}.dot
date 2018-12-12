@@ -1,0 +1,13 @@
+digraph Tree {
+node [shape=box, style="filled, rounded", color="black", fontname=helvetica] ;
+edge [fontname=helvetica] ;
+0 [label=<MagneticField_x_MEAN &le; 0.707<br/>gini = 0.5<br/>samples = 31<br/>value = [24, 24]<br/>class = No attack>, fillcolor="#e5813900"] ;
+1 [label=<gini = 0.0<br/>samples = 17<br/>value = [0, 23]<br/>class = Attack>, fillcolor="#399de5ff"] ;
+0 -> 1 [labeldistance=2.5, labelangle=45, headlabel="True"] ;
+2 [label=<MagneticField_x_MEAN &le; 0.766<br/>gini = 0.077<br/>samples = 14<br/>value = [24, 1]<br/>class = No attack>, fillcolor="#e58139f4"] ;
+0 -> 2 [labeldistance=2.5, labelangle=-45, headlabel="False"] ;
+3 [label=<gini = 0.0<br/>samples = 13<br/>value = [24, 0]<br/>class = No attack>, fillcolor="#e58139ff"] ;
+2 -> 3 ;
+4 [label=<gini = 0.0<br/>samples = 1<br/>value = [0, 1]<br/>class = Attack>, fillcolor="#399de5ff"] ;
+2 -> 4 ;
+}
