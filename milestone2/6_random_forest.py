@@ -10,6 +10,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 
 
+
 path_train                  =           "model/data_train.csv"
 path_test                   =           "model/data_test.csv"
 path_mergered               =           "data/data_merged.csv"
@@ -79,7 +80,6 @@ def random_forest(train, test):
                   'Relevancia': clf_rf.feature_importances_}),"\n")
     print("Máxima relevancia RF :" , max(clf_rf.feature_importances_), "\n")
   
-
 if __name__ == '__main__':
     train = read_dataset(path_train)
     test  = read_dataset(path_test)
