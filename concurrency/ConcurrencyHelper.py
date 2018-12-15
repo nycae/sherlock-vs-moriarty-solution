@@ -28,14 +28,21 @@ class ConcurrentForVoidReturn:
                 arguments = self.values[tasks_started]
 
                 if isinstance(arguments, (list,) ):
+<<<<<<< HEAD
                     threads.append( Thread(target = self.funct, args = arguments     ))
                 else :
                     threads.append( Thread(target = self.funct, args = (arguments, ) ))
+=======
+                    threads.append( Thread(target = self.funct, args = arguments) )
+                else :
+                    threads.append( Thread(target = self.funct, args = (arguments, )) )
+>>>>>>> 0b7020636155aedeb4add46a92ad22d7943c6779
 
                 threads[-1].start()
                 tasks_started += 1
 
             # Remove completed tasks
+<<<<<<< HEAD
             for t in threads:
                 if not t.isAlive():
 
@@ -93,6 +100,12 @@ class ConcurrentFor:
 
         return return_values
 
+=======
+            threads = [t for t in threads if t.isAlive()]
+
+            # Update completed tasks
+            tasks_completed += self.max_threads - len(threads)
+>>>>>>> 0b7020636155aedeb4add46a92ad22d7943c6779
 
 
 if __name__ == '__main__':
@@ -100,12 +113,19 @@ if __name__ == '__main__':
     def simpleFunction(to_print, to_sleep):
         print(to_print)
         time.sleep(to_sleep)
+<<<<<<< HEAD
         return to_print
 
     def simplerFunction(to_sleep):
         time.sleep(to_sleep)
         return "Simple Function called"
 
+=======
+
+    def simplerFunction(to_sleep):
+        print("Simple Function called")
+        time.sleep(to_sleep)
+>>>>>>> 0b7020636155aedeb4add46a92ad22d7943c6779
     
     arguments = [
                 ["Proceso0", 1],
@@ -119,8 +139,18 @@ if __name__ == '__main__':
                 ["Proceso8", 1],
                 ["Proceso9", 1]
                 ]
+<<<<<<< HEAD
                 
     arguments2 =[1] * 10
     
     bucle = ConcurrentForVoidReturn(simpleFunction, arguments, 4)
     print(bucle.run())
+=======
+    arguments2 =[1] * 10
+    
+    bucle = ConcurrentForVoidReturn(simpleFunction, arguments, 4)
+    bucle.run()
+
+    bluce = ConcurrentForVoidReturn(simplerFunction, arguments2, 4)
+    bluce.run()
+>>>>>>> 0b7020636155aedeb4add46a92ad22d7943c6779
