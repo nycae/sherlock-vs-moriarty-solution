@@ -20,7 +20,6 @@ def label_dataset(df_to_label, df_labels, probe_time):
   
   for i in df_labels["UUID"]:
     aux = df_to_label[(int(i) <= df_to_label.UUID ) & (int(i) >= (df_to_label.UUID - probe_time))]
-    print(aux)
     if not (aux.empty):
       df_to_label.loc[aux.index, 'attack'] = 1
 

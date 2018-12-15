@@ -22,7 +22,7 @@ def to_csv(path,dataframe):
     np.savetxt(path, dataframe, delimiter=",")
 
 def report(results, n_top=3): # Función para mostrar resultados
-    for i in range(1, n_top + 1):
+    for i in range(2, n_top + 1):
         candidates = np.flatnonzero(results['rank_test_score'] == i)
         for candidate in candidates:
             print("Model with rank: {0}".format(i))
@@ -43,11 +43,25 @@ def random_forest(train, test):
     
     X, y      = x_train, y_train
     
-    clf_rf = RandomForestClassifier(n_jobs=512, random_state=0)
+    clf_rf = RandomForestClassifier(n_estimators=10, random_state = 0)
+    """
+    param_dist = {"max_depth": [None],
+              "max_features": sp_randint(1, 13),
+              "min_samples_split": sp_randint(2, 95),
+              "min_samples_leaf": sp_randint(1, 95),
+              "bootstrap": [True, False], 'class_weight':['balanced'],
+              "criterion": ["gini", "entropy"]}
     
+    random_search = RandomizedSearchCV(clf_rf, scoring= 'f1_micro', 
+                                   param_distributions=param_dist, 
+                                   n_iter= 80)  
+    random_search.fit(X, y)
+    """
     clf_rf.fit(X, y) # Construcción del modelo
     
     preds_rf = clf_rf.predict(x_test) # Test del modelo
+    
+#    report(random_search.cv_results_)    
     
     print("Random Forest: \n" 
           +classification_report(y_true=y_test, y_pred=preds_rf))
@@ -64,7 +78,7 @@ def random_forest(train, test):
     print(pd.DataFrame({'Indicador': features ,
                   'Relevancia': clf_rf.feature_importances_}),"\n")
     print("Máxima relevancia RF :" , max(clf_rf.feature_importances_), "\n")
-    
+  
 
 if __name__ == '__main__':
     train = read_dataset(path_train)
@@ -73,6 +87,6 @@ if __name__ == '__main__':
     # To delete the field "Unnamed: 0"
     train.drop(train.columns[[0]], axis=1, inplace=True)
     test.drop(test.columns[[0]], axis=1, inplace=True)
-    
+        
     random_forest(train, test)
     

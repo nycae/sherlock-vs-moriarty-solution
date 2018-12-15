@@ -63,20 +63,17 @@ def clustering(data_norm, X_pca):
 
     # 1.0 Clustering execution
     k = 36 # one attack for each no attack
-    # 1.1 random inicialization
-    centroids, labels, z =  sklearn.cluster.k_means(data_norm, k, init="random" )
-    plot_pca(X_pca,labels, "kmeans")
 
-    # 1.2 k-means ++
+    # 1.1 k-means ++
     centroidsplus, labelsplus, zplus =  sklearn.cluster.k_means(data_norm, k, init="k-means++" )
-    plot_pca(X_pca, labelsplus, "kmeans++")
+#    plot_pca(X_pca, labelsplus, "kmeans++")
 
     # Characterization
-    n_clusters_ = len(set(labels)) #- (1 if -1 in labels else 0)
+    n_clusters_ = len(set(labelsplus)) #- (1 if -1 in labels else 0)
     print('Estimated number of clusters: %d' % n_clusters_)
     print("Silhouette Coefficient: %0.3f"
-          % metrics.silhouette_score(data_norm, labels))
-    df['group'] = labels
+          % metrics.silhouette_score(data_norm, labelsplus))
+    df['group'] = labelsplus
     df.groupby(('group')).mean()
     
     return centroidsplus
@@ -87,8 +84,13 @@ def to_csv(path,dataframe):
 if __name__ == '__main__':
     
     df            = read_dataset(path_normalized)
-    X_pca         = calculatePCA(df)
-    df = clustering(df, X_pca)
-    to_csv(path_centroids_no_attacks,df)   
+    df.drop(df.columns[[13]], axis=1, inplace=True)
+
+#    X_pca                   = calculatePCA(df)
+    X_pca = 20
+    df_centroids            = clustering(df, X_pca)
+
+    print(df_centroids)
+    to_csv(path_centroids_no_attacks,df_centroids)   
     
     
