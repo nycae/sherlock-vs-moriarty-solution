@@ -44,6 +44,7 @@ def random_forest(train, test):
     x_train   = train[features]
     y_train   = train['attack']
     
+    
     x_test    = test[features]
     y_test    = test['attack']
     
@@ -93,9 +94,41 @@ def random_forest(train, test):
                       special_characters=True, class_names = ['No attack','Attack'])
       (graph,) = pydot.graph_from_dot_file('tree_from_forest.dot')
       graph.write_png('trees/tree_from_forest_birch_{}.png'.format(birch))
+    
+    return clf_rf
+  
+def production_simulation(clf_rf, dataset_prueba):
+    dataset_prod = pd.concat([dataset_prueba, test])
+    dataset_prod = dataset_prod.sample(frac=1)
+  
+    features  = dataset_prod.columns[:13]
+    x_test    = dataset_prod[features]
+    y_test    = dataset_prod['attack']
+  
+    preds_rf = clf_rf.predict(x_test) # Test del modelo
+    
+#    report(random_search.cv_results_)    
+    
+    print("Random Forest: \n" 
+          +classification_report(y_true=y_test, y_pred=preds_rf))
+    
+    # Matriz de confusión
+    
+    print("Matriz de confusión:\n")
+    matriz = pd.crosstab(dataset_prod['attack'], preds_rf, rownames=['actual'], colnames=['preds'])
+    print(matriz)
+    
+    # Variables relevantes
+    
+    print("Relevancia de variables:\n")
+    print(pd.DataFrame({'Indicador': features ,
+                  'Relevancia': clf_rf.feature_importances_}),"\n")
+    print("Máxima relevancia RF :" , max(clf_rf.feature_importances_), "\n")
       
 if __name__ == '__main__':
-    train = read_dataset(r.path_train)
-    test  = read_dataset(r.path_test)
+    train       = read_dataset(r.path_train)
+    test        = read_dataset(r.path_test)
+    df_prod     = read_dataset(r.path_prod_sample)
         
-    random_forest(train, test)
+    random_birch = random_forest(train, test)
+    production_simulation(random_birch, df_prod)

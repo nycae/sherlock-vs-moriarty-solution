@@ -28,6 +28,16 @@ def divide_datasets(df_merged):
 
 def to_csv(path,dataframe):
     np.savetxt(path, dataframe, delimiter=",")
+
+def make_production_sample(dataset):
+    # Mezclamos y requetemezclamos
+    df_divide = dataset.sample(frac=1)
+    
+    # 1/3 for test  2/3 for train
+    p = 0.04
+    df_production = df_divide[:int((len(df_divide))*p)]
+    
+    return df_production  
     
 if __name__ == '__main__':
     df1           = read_dataset(r.path_norm_attacks)
@@ -35,9 +45,14 @@ if __name__ == '__main__':
     
     df2           = read_dataset(r.path_norm_centroids)
     df2['0'] = 0
-        
+    
+    prod_sample       = read_dataset(r.path_norm_no_attacks)
+    prod_sample       = make_production_sample(prod_sample)
+    prod_sample['0']  = 0
+    
     to_csv(r.path_processed_attacks, df1)
     to_csv(r.path_processed_no_attacks, df2)
+    to_csv(r.path_prod_aux, prod_sample)
 
     merge_datasets(r.path_processed_attacks, r.path_processed_no_attacks)
     df_merged = read_dataset(r.path_merged_data)
@@ -50,6 +65,6 @@ if __name__ == '__main__':
     
     add_columns_names(r.path_train_aux, r.path_train)
     add_columns_names(r.path_test_aux, r.path_test)
-    
+    add_columns_names(r.path_prod_aux, r.path_prod_sample)
     
     
