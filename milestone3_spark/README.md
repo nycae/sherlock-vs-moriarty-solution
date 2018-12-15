@@ -1,24 +1,17 @@
-# Milestone 3
-## What is the problem?
+# Milestone 3 using Spark
+## What we have to do?
 
-The main problem with this milestone is to finalize the model and draw the appropriate conclusions from the project.
+Apply spark's learned knowledge for more efficient data processing.
 
-![alt text](https://github.com/RoberPlaza/MachineLearningLAB/blob/development/resources/img/problem2.png)
+<p align="center">
+  <img width="300" height="200" src="https://github.com/RoberPlaza/MachineLearningLAB/blob/master/resources/img/spark.png">
+</p>
 
-We have divided the work into six .py files so we describe them below
+## Results
 
-## 1. Dataset description
-The description of the dataset and the features are the same as in milestone 2, we will use data from T2.csv.
+After a bit of struggle we managed to replicate the random forest algorithm. We discovered that the amount of train/test is quite relevant, and with 80\% of the data as train the algorithm behaves in a very alarmist way.
 
-## 2. Pre-processing, cleaning and clustering
-
-
-## Random forest
-  * [5_random_forest.py](https://github.com/RoberPlaza/MachineLearningLAB/blob/development/milestone3/5_random_forest.py)
-
-## Decision tree
-  * [6_decision_tree.py](https://github.com/RoberPlaza/MachineLearningLAB/blob/development/milestone3/6_decision_tree.py)
-
-After several attempts to parameterize, we do not know why spyder did not leave us and we
-
-## Conclusions
+<p align="center">
+  <img width="750" height="400" src="https://github.com/RoberPlaza/MachineLearningLAB/blob/master/resources/img/predictions.png">
+</p>
+Everything points to our model having a 100% success rate, tested with both Spark and pandas.
