@@ -28,7 +28,6 @@ class ConcurrentForVoidReturn:
                 arguments = self.values[tasks_started]
 
                 if isinstance(arguments, (list,) ):
-                    
                     threads.append( Thread(target = self.funct, args = arguments     ))
                 else :
                     threads.append( Thread(target = self.funct, args = (arguments, ) ))
@@ -50,7 +49,8 @@ class ConcurrentFor:
 
         self.funct = funct
         self.values = values
-        self.max_threads = max_threads
+        self.max_threads = max_threads<<<<<<< HEAD
+<<<<<<< HEAD
 
     def run(self):
 
