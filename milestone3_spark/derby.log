@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Mon Dec 10 16:48:52 CET 2018:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0167-98ce-8bd1-00000ef99ed8 
-on database directory /home/lajotadeladerrota/MachineLearning/milestone3_spark/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@4eaf4ed1 
+Fri Dec 14 18:39:53 CET 2018:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0167-adcd-9f35-0000131047e0 
+on database directory /home/lajotadeladerrota/Escritorio/Universidad/4Curso/MachineLearning/LAB/MachineLearningLAB/milestone3_spark/metastore_db with class loader org.apache.spark.sql.hive.client.IsolatedClientLoader$$anon$1@20f7a738 
 Loaded from file:/usr/lib/spark/jars/derby-10.12.1.1.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_191-b12
-user.dir=/home/lajotadeladerrota/MachineLearning/milestone3_spark
+user.dir=/home/lajotadeladerrota/Escritorio/Universidad/4Curso/MachineLearning/LAB/MachineLearningLAB/milestone3_spark
 os.name=Linux
 os.arch=amd64
 os.version=4.15.0-42-generic

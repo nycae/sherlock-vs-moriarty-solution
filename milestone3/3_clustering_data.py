@@ -83,7 +83,6 @@ def to_csv(path,dataframe):
 if __name__ == '__main__':
     
     df            = read_dataset(r.path_norm_no_attacks)
-#    df.drop(df.columns[[17]], axis=1, inplace=True)
 
     X_pca                   = calculatePCA(df)
     df_centroids            = clustering(df, X_pca)
