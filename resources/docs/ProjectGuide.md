@@ -1,5 +1,5 @@
-# Guia de proyectos de la asignatura "Machine learning tecniques"
-Autor/es: 
+# Guia de proyectos de la asignatura "Machine learning techniques"
+Autor/es:
 * Roberto Plaza Romero
 
 Miembros del equipo de proyecto:
@@ -68,7 +68,7 @@ used_string             = "Hello, World"
 unused_object           = None
 used_object             = ObjectFactory()
 
-# Some Code 
+# Some Code
 
 unused_object           = used_object.create()
 ```
@@ -83,8 +83,8 @@ Se definirán los métodos de la siguiente manera:
 * En el caso de que no quede muy claro donde acaba una función se deberá hacer un "return None" para dejarlo claro.
 
 ##### Clases
-Para definir una clase se hará de la siguiente manera: 
-* Nombre de la clase y constructor en la línea siguiente sin dejar línea una línea en blanco. 
+Para definir una clase se hará de la siguiente manera:
+* Nombre de la clase y constructor en la línea siguiente sin dejar línea una línea en blanco.
 * Dentro del constructor se inicializarán los atributos como si de variables se trataran, usando la convención anterior.
 * Los métodos de la clase se definirán dejando una (1) línea en blanco entre método y método, como en la convención anterior.
 * Se acabará con dos (2) líneas en blanco hasta la siguiente definición.
@@ -94,8 +94,8 @@ Código Ejemplo:
 class MyClase():
     def __init__(self, value):
         self.not_init_variable  = ""
-        self.init_variable      = value 
-    
+        self.init_variable      = value
+
     def funcion(self):
         pass
 
@@ -121,7 +121,7 @@ if __name__ == '__main__':
 Vía libre, pero entre imports y definiciones será obligatorio dejar dos (2) líneas en blanco.
 
 ### Casos adicionales
-Se adjuntará por cada entregable un archivo "paths.py" en el cual estará guardado el nombre de todos los archivos relevantes. **Importante:** Ninguna de las variables deberá tener más de un '/', véase, si los directorios han de guardarse también. e.g: 
+Se adjuntará por cada entregable un archivo "paths.py" en el cual estará guardado el nombre de todos los archivos relevantes. **Importante:** Ninguna de las variables deberá tener más de un '/', véase, si los directorios han de guardarse también. e.g:
 ```python
 databases           = 'data/'
 untreated_database  = databases + 'T2.csv'
